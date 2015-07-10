@@ -16,6 +16,7 @@ public:
   };
 
   explicit Buffer(Type type);
+  ~Buffer();
 
   void Create();
   bool IsCreated();

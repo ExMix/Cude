@@ -29,6 +29,12 @@ Buffer::Buffer(Buffer::Type type)
 {
 }
 
+Buffer::~Buffer()
+{
+  if (IsCreated())
+    GLCHECK(glDeleteBuffers(1, &m_bufferID));
+}
+
 void Buffer::Create()
 {
   GLCHECK(glGenBuffers(1, &m_bufferID));
@@ -58,7 +64,7 @@ void Buffer::Allocate(int byteCount)
 
 void Buffer::Allocate(int byteCount, void * data)
 {
-  ASSERT(IsCreated(), "");
+  Bind();
   GLCHECK(glBufferData(Convert(m_type), byteCount, data, GL_STATIC_DRAW));
 }
 

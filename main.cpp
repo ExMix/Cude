@@ -55,13 +55,14 @@ void WindowSizeChanged(GLFWwindow * /*window*/, int w, int h)
 
 int main()
 {
-  std::string const defaultScene("Triangle Scene");
+  std::string const defaultScene("LoadModelScene");
 
   if (!glfwInit())
   {
     return 1;
   }
 
+  glfwWindowHint(GLFW_SAMPLES, 16);
   GLFWwindow * window = glfwCreateWindow(800, 600, defaultScene.c_str(), nullptr, nullptr);
   if (window == nullptr)
   {

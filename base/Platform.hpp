@@ -12,6 +12,7 @@ class Platform
 {
 public:
   static TFileReaderPtr GetReader(std::string const & resourceName);
+  static std::string GetResourcePath(std::string const & resourceName);
 };
 
 

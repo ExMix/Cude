@@ -7,5 +7,10 @@
 
 TFileReaderPtr Platform::GetReader(std::string const & resourceName)
 {
-  return TFileReaderPtr(new FileReader(std::string(RESOURCE_PATH) + resourceName));
+  return TFileReaderPtr(new FileReader(GetResourcePath(resourceName)));
+}
+
+std::string Platform::GetResourcePath(std::string const & resourceName)
+{
+  return std::string(RESOURCE_PATH) + resourceName;
 }
