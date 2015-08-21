@@ -77,7 +77,7 @@ private:
   void CalcSceneBounds(aiScene const * scene);
   void CalcSceneBoundsImpl(aiScene const * scene, aiNode const * node, glm::mat4 const & m);
 
-  void BindBuffer(TVertexBuffer & buffer, GLint location, int componentCount);
+  void BindBuffer(TVertexBuffer & buffer, GLuint location, int componentCount);
   void RenderNode(std::unique_ptr<Node> & node, glm::mat4 const & m);
 
   std::unique_ptr<Node> m_sceneRoot;

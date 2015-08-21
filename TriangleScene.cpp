@@ -28,8 +28,8 @@ TriangleScene::TriangleScene()
   m_vertexBuffer.Bind();
   m_vertexBuffer.Allocate(sizeof(float) * std::distance(std::begin(vertices), std::end(vertices)), vertices);
 
-  m_prg.reset(new ShaderProgram(Platform::GetReader("simple.vsh"),
-                                Platform::GetReader("solid.fsh")));
+  m_prg.reset(new ShaderProgram(Platform::GetReader("simple.vert"),
+                                Platform::GetReader("solid.frag")));
 
   GLCHECK(glClearColor(0.65f, 0.65f, 0.65f, 1.0f));
 }

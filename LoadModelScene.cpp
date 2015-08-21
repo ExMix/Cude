@@ -57,8 +57,8 @@ LoadModelScene::LoadModelScene()
   GLCHECK(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
   GLCHECK(glBlendEquation(GL_FUNC_ADD));
 
-  m_prg.reset(new ShaderProgram(Platform::GetReader("model.vsh"),
-                                Platform::GetReader("model.fsh")));
+  m_prg.reset(new ShaderProgram(Platform::GetReader("model.vert"),
+                                Platform::GetReader("model.frag")));
 }
 
 LoadModelScene::~LoadModelScene()
@@ -114,7 +114,7 @@ void LoadModelScene::Render()
   RenderNode(m_sceneRoot, m_modelView);
 }
 
-void LoadModelScene::BindBuffer(TVertexBuffer & buffer, GLint location, int componentCount)
+void LoadModelScene::BindBuffer(TVertexBuffer & buffer, GLuint location, int componentCount)
 {
   buffer->Bind();
 

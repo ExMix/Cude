@@ -23,8 +23,8 @@ add_subdirectory(${RESOURCE_FOLDER})
 file(GLOB BASE_SOURCE ${BASE_FOLDER}/*.cpp ${BASE_FOLDER}/*.hpp)
 file(GLOB OGL_SOURCE ${OGL_FOLDER}/*.cpp ${BASE_FOLDER}/*.hpp)
 file(GLOB SOURCES *.cpp *.hpp)
-file(GLOB RESOURCE_FILES ${RESOURCE_FOLDER}/*.vsh
-                         ${RESOURCE_FOLDER}/*.fsh
+file(GLOB RESOURCE_FILES ${RESOURCE_FOLDER}/*.vert
+                         ${RESOURCE_FOLDER}/*.frag
                          ${RESOURCE_FOLDER}/*.png
                          ${RESOURCE_FOLDER}/*.jpg
                          ${RESOURCE_FOLDER}/*.x
