@@ -6,7 +6,7 @@
 
 #include <assimp/material.h>
 
-#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
 
 class Material
 {

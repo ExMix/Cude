@@ -1,9 +1,11 @@
-#version 120
+#version 330
 
-varying vec3 v_normal;
-varying vec3 v_tangent;
-varying vec3 v_bitangent;
-varying vec2 v_diffuseTexCoord;
+in vec3 v_normal;
+in vec3 v_tangent;
+in vec3 v_bitangent;
+in vec2 v_diffuseTexCoord;
+
+out vec4 color;
 
 uniform vec4 u_ambientColor;
 
@@ -24,10 +26,10 @@ void main(void)
                             normal_tangentSpace));
 
   vec3 light_tangetSpace = TBN * normalize(u_lightVector);
-  vec3 normal_tex = normalize(2.0 * texture2D(u_normalTexture, v_diffuseTexCoord).rgb - 1.0);
+  vec3 normal_tex = normalize(2.0 * texture(u_normalTexture, v_diffuseTexCoord).rgb - 1.0);
 
-  vec3 diffuseLight = texture2D(u_duffiseTexture, v_diffuseTexCoord).rgb * dot(normal_tex, normalize(light_tangetSpace));
+  vec3 diffuseLight = texture(u_duffiseTexture, v_diffuseTexCoord).rgb * dot(normal_tex, normalize(light_tangetSpace));
   vec3 ambientLight = diffuseLight * vec3(u_ambientColor.r, u_ambientColor.g, u_ambientColor.b) * u_ambientColor.w;
 
-  gl_FragColor = vec4(diffuseLight + ambientLight, 1.0);
+  color = vec4(diffuseLight + ambientLight, 1.0);
 }

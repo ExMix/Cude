@@ -7,7 +7,7 @@
 #include "base/FileReader.hpp"
 #include "base/macros.hpp"
 
-#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
 
 class ShaderProgram
 {

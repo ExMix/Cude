@@ -4,7 +4,7 @@
 
 #include "ClearScene.hpp"
 
-#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
 
 ClearScene::ClearScene()
 {

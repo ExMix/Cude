@@ -5,7 +5,7 @@
 #include "GLUtils.hpp"
 #include "base/assert.hpp"
 
-#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
 
 std::string GetGLError(GLenum error)
 {

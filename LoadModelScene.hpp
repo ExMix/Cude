@@ -10,6 +10,7 @@
 #include "ogl/Material.hpp"
 #include "ogl/Buffer.hpp"
 #include "ogl/ShaderProgram.hpp"
+#include "ogl/VertexArray.hpp"
 
 #include "glm/glm.hpp"
 
@@ -65,6 +66,7 @@ private:
     }
 
     std::vector<MeshNode> m_meshes;
+    std::unique_ptr<VertexArray> m_vao;
     glm::mat4 m_transform;
 
     std::vector<std::unique_ptr<Node>> m_children;

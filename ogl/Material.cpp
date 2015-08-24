@@ -12,7 +12,7 @@
 
 #include <assimp/types.h>
 #include <assimp/DefaultLogger.hpp>
-#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
 
 #include <vector>
 
@@ -34,7 +34,7 @@ GLuint LoadTexture(std::string const & name)
   switch (comp)
   {
     case 1:
-      format = GL_LUMINANCE;
+      format = GL_RED;
       break;
     case 2:
       ASSERT(false, "");

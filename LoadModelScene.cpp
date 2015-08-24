@@ -114,15 +114,6 @@ void LoadModelScene::Render()
   RenderNode(m_sceneRoot, m_modelView);
 }
 
-void LoadModelScene::BindBuffer(TVertexBuffer & buffer, GLuint location, int componentCount)
-{
-  buffer->Bind();
-
-  ASSERT(location != -1, "");
-  GLCHECK(glEnableVertexAttribArray(location));
-  GLCHECK(glVertexAttribPointer(location, componentCount, GL_FLOAT, GL_FALSE, componentCount * sizeof(float), nullptr));
-}
-
 void LoadModelScene::RenderNode(std::unique_ptr<Node> & node, glm::mat4 const & m)
 {
   GLint diffuseLoc = m_prg->GetUniform("u_duffiseTexture");
@@ -146,13 +137,7 @@ void LoadModelScene::RenderNode(std::unique_ptr<Node> & node, glm::mat4 const & 
     if (normalLoc != -1)
       GLCHECK(glUniform1i(normalLoc, 1));
 
-    mesh.m_indices->Bind();
-    BindBuffer(mesh.m_vertices, m_prg->GetAttribute("a_position"), 3);
-    BindBuffer(mesh.m_normals, m_prg->GetAttribute("a_normal"), 3);
-    BindBuffer(mesh.m_tangents, m_prg->GetAttribute("a_tangent"), 3);
-    BindBuffer(mesh.m_bitangents, m_prg->GetAttribute("a_bitangent"), 3);
-    BindBuffer(mesh.m_texCoords, m_prg->GetAttribute("a_diffuseTexCoord"), 2);
-
+    node->m_vao->Bind();
     GLCHECK(glDrawElements(GL_TRIANGLES, mesh.m_indicesCount, GL_UNSIGNED_INT, nullptr));
   }
 
@@ -225,6 +210,23 @@ void LoadModelScene::CreateSceneImpl(std::unique_ptr<Node> & root, aiScene const
     meshNode.m_normals = AllocateBuffer(sizeof(aiVector3D) * numVertices, mesh->mNormals);
     meshNode.m_tangents = AllocateBuffer(sizeof(aiVector3D) * numVertices, mesh->mTangents);
     meshNode.m_bitangents = AllocateBuffer(sizeof(aiVector3D) * numVertices, mesh->mBitangents);
+
+    root->m_vao.reset(new VertexArray());
+    root->m_vao->Create();
+    root->m_vao->Bind();
+
+    VertexArray::TVAOLayout layout =
+      {
+        { meshNode.m_vertices.get(), { kPositionLoc, 3, GL_FLOAT, 3 * sizeof(float), 0 } },
+        { meshNode.m_normals.get(), { kNormalLoc, 3, GL_FLOAT, 3 * sizeof(float), 0 } },
+        { meshNode.m_tangents.get(), { kTangentLoc, 3, GL_FLOAT, 3 * sizeof(float), 0 } },
+        { meshNode.m_bitangents.get(), { kBitangentLoc, 3, GL_FLOAT, 3 * sizeof(float), 0 } },
+        { meshNode.m_texCoords.get(), { kTexCoordLoc, 2, GL_FLOAT, 2 * sizeof(float), 0 } },
+      };
+
+    meshNode.m_indices->Bind();
+    root->m_vao->Build(layout);
+    VertexArray::Release();
   }
 
   for (uint32_t nodeIndex = 0; nodeIndex < node->mNumChildren; ++nodeIndex)
